@@ -8,15 +8,30 @@ import Dashboard from './pages/Dashboard'
 import TicketManagement from './pages/TicketManagement'
 import Layout from './components/Layout'
 
+// Add debug component
+function DebugTest() {
+  return (
+    <div style={{ padding: '2rem', background: 'red', color: 'white' }}>
+      <h1>DEBUG: React is working!</h1>
+      <p>If you see this, React is rendering but components might have issues</p>
+    </div>
+  )
+}
+
 function ProtectedRoute({ children }) {
   const { isAuthenticated } = useAuth()
   return isAuthenticated ? children : <Navigate to="/auth/login" />
 }
 
 function App() {
+  console.log('App component rendering') // Add this log
+  
   return (
     <AuthProvider>
       <Routes>
+        {/* Add debug route first */}
+        <Route path="/debug" element={<DebugTest />} />
+        
         <Route path="/" element={<LandingPage />} />
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/signup" element={<Signup />} />
