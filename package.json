@@ -1,0 +1,11 @@
+{
+  "name": "react-ticket-app",
+  "homepage": "https://thollarkings.github.io/MultiTicket/react-app",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
+  }
+}
