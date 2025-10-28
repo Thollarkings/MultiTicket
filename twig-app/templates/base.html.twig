@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Ticket Management App{% endblock %}</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    {% block styles %}{% endblock %}
+</head>
+<body>
+    {% block header %}
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                
+            </div>
+            <div class="nav-links">
+                {% if user is defined and user %}
+                    <span class="user-welcome">Welcome, {{ user.name }}</span>
+                    <a href="dashboard.php" class="nav-link">Dashboard</a>
+                    <a href="tickets.php" class="nav-link">Tickets</a>
+                    <button onclick="authService.logout()" class="btn btn-outline">Logout</button>
+                {% else %}
+
+                    
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+    {% endblock %}
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block footer %}
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 TicketFlow. Built with Twig.</p>
+        </div>
+    </footer>
+    {% endblock %}
+
+    <!-- JavaScript Files -->
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/tickets.js"></script>
+    <script src="assets/js/app.js"></script>
+    
+    {% block scripts %}{% endblock %}
+    
+    <script>
+        // Auth check on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = authService.getCurrentUser();
+            if (!user && !window.location.pathname.includes('login.php') && 
+                !window.location.pathname.includes('signup.php') && 
+                !window.location.pathname.includes('index.php')) {
+                window.location.href = 'login.php';
+            }
+        });
+    </script>
+</body>
+</html>

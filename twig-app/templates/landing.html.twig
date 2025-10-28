@@ -1,0 +1,87 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Welcome - Ticket Management App{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <div class="circle circle-large"></div>
+    <div class="circle circle-small"></div>
+    
+    <div class="container">
+        <div class="hero-content">
+        <h1 class="hero-title1">TicketFlow</div>
+            <h1 class="hero-title">Streamline Your Support Tickets</h1>
+            <p class="hero-subtitle">A powerful ticket management system built with Twig, PHP, and modern JavaScript.</p>
+            <div class="hero-buttons">
+                
+                <a href="login.php" class="btn-outline">Login</a>
+                <a href="signup.php" class="btn btn-primary">Get Started </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="features-section">
+    <div class="container">
+        <h2 class="section-title">Why Choose TicketFlow?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3>Lightning Fast</h3>
+                <p>Built with Twig templating for blazing fast performance and clean, maintainable code.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Secure Authentication</h3>
+                <p>Client-side authentication with localStorage security and session management.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Simple CRUD</h3>
+                <p>Create, read, update, and delete tickets with an intuitive interface.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Responsive Design</h3>
+                <p>Works perfectly on desktop, tablet, and mobile devices.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="tech-section">
+    <div class="container">
+        <h2 class="section-title">Built with Modern Technologies</h2>
+        <div class="tech-stack">
+            <div class="tech-item">
+                <span class="tech-name">Twig</span>
+                <span class="tech-desc">Powerful PHP Templating</span>
+            </div>
+            <div class="tech-item">
+                <span class="tech-name">PHP</span>
+                <span class="tech-desc">Server-side Logic</span>
+            </div>
+            <div class="tech-item">
+                <span class="tech-name">JavaScript</span>
+                <span class="tech-desc">Client-side Interactivity</span>
+            </div>
+            <div class="tech-item">
+                <span class="tech-name">CSS3</span>
+                <span class="tech-desc">Modern Styling</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // If user is already logged in, update navigation
+        const user = authService.getCurrentUser();
+        if (user) {
+            console.log('User is logged in:', user.name);
+        }
+    });
+</script>
+{% endblock %}

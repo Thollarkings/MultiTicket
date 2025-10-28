@@ -6,7 +6,8 @@
       
       <div class="container">
         <div style="position: relative; z-index: 10; text-align: center; width: 100%">
-          <h1 style="font-size: 3rem; margin-bottom: 1rem; font-weight: bold">TicketFlow</h1>
+          <h1 style="font-size: 3rem; margin-bottom: 1rem; font-weight: bold">Ticket Flow</h1>
+          <h1 class="hero-title">Streamline Your Support Tickets</h1>
           <p style="font-size: 1.25rem; margin-bottom: 2rem; max-width: 600px; margin: 0 auto 2rem; opacity: 0.9">
             Streamline your support process with our powerful ticket management system
           </p>

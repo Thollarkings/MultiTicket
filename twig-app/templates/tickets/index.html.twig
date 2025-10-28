@@ -1,0 +1,120 @@
+{% extends "base.html.twig" %}
+
+{% block title %}All Tickets - Ticket Management App{% endblock %}
+
+{% block content %}
+<div class="tickets-container">
+    <div class="tickets-header">
+        <h1>All Tickets</h1>
+        <a href="create-ticket.php" class="btn btn-primary">+ New Ticket</a>
+    </div>
+
+    <div class="tickets-controls">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search tickets..." class="search-input">
+        </div>
+        <div class="filter-controls">
+            <select id="statusFilter" class="filter-select">
+                <option value="">All Status</option>
+                <option value="pending">Pending</option>
+                <option value="in-progress">In Progress</option>
+                <option value="resolved">Resolved</option>
+            </select>
+            <select id="priorityFilter" class="filter-select">
+                <option value="">All Priority</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="tickets-list" id="ticketsList">
+        <div class="empty-state">
+            <p>No tickets found. <a href="create-ticket.php">Create your first ticket!</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let allTickets = [];
+        
+        // Load tickets
+        loadTickets();
+        
+        // Setup filters
+        document.getElementById('searchInput').addEventListener('input', filterTickets);
+        document.getElementById('statusFilter').addEventListener('change', filterTickets);
+        document.getElementById('priorityFilter').addEventListener('change', filterTickets);
+        
+        function loadTickets() {
+            allTickets = ticketService.getTickets();
+            displayTickets(allTickets);
+        }
+        
+        function filterTickets() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const statusFilter = document.getElementById('statusFilter').value;
+            const priorityFilter = document.getElementById('priorityFilter').value;
+            
+            const filtered = allTickets.filter(ticket => {
+                const matchesSearch = ticket.title.toLowerCase().includes(searchTerm) || 
+                                    ticket.description.toLowerCase().includes(searchTerm);
+                const matchesStatus = !statusFilter || ticket.status === statusFilter;
+                const matchesPriority = !priorityFilter || ticket.priority === priorityFilter;
+                
+                return matchesSearch && matchesStatus && matchesPriority;
+            });
+            
+            displayTickets(filtered);
+        }
+        
+        function displayTickets(tickets) {
+            const container = document.getElementById('ticketsList');
+            
+            if (tickets.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <p>No tickets found. <a href="create-ticket.php">Create your first ticket!</a></p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = tickets.map(ticket => `
+                <div class="ticket-card" data-ticket-id="${ticket.id}">
+                    <div class="ticket-header">
+                        <h3 class="ticket-title">${ticket.title}</h3>
+                        <div class="ticket-actions">
+                            <a href="edit-ticket.php?id=${ticket.id}" class="btn btn-sm btn-outline">Edit</a>
+                            <button onclick="deleteTicket('${ticket.id}')" class="btn btn-sm btn-danger">Delete</button>
+                        </div>
+                    </div>
+                    <p class="ticket-description">${ticket.description}</p>
+                    <div class="ticket-footer">
+                        <span class="ticket-priority priority-${ticket.priority}">
+                            ${ticket.priority}
+                        </span>
+                        <span class="ticket-status status-${ticket.status}">
+                            ${ticket.status}
+                        </span>
+                        <span class="ticket-date">
+                            Created: ${new Date(ticket.createdAt).toLocaleDateString()}
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        window.deleteTicket = function(ticketId) {
+            if (confirm('Are you sure you want to delete this ticket?')) {
+                ticketService.deleteTicket(ticketId);
+                loadTickets(); // Refresh the list
+            }
+        };
+    });
+</script>
+{% endblock %}

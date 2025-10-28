@@ -1,0 +1,127 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Dashboard - Ticket Management App{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">Dashboard</h1>
+        <p class="dashboard-subtitle">Welcome back! Here's your ticket overview.</p>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">📊</div>
+            <div class="stat-info">
+                <h3 class="stat-number" id="totalTickets">0</h3>
+                <p class="stat-label">Total Tickets</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">⏳</div>
+            <div class="stat-info">
+                <h3 class="stat-number" id="pendingTickets">0</h3>
+                <p class="stat-label">Pending</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">✅</div>
+            <div class="stat-info">
+                <h3 class="stat-number" id="resolvedTickets">0</h3>
+                <p class="stat-label">Resolved</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">🚀</div>
+            <div class="stat-info">
+                <h3 class="stat-number" id="inProgressTickets">0</h3>
+                <p class="stat-label">In Progress</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="recent-tickets">
+        <div class="section-header">
+            <h2>Recent Tickets</h2>
+            <a href="tickets.php" class="btn btn-outline">View All</a>
+        </div>
+        
+        <div class="tickets-list" id="recentTickets">
+            <div class="empty-state">
+                <p>No tickets yet. <a href="create-ticket.php">Create your first ticket!</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="quick-actions">
+        <h2>Quick Actions</h2>
+        <div class="action-buttons">
+            <a href="create-ticket.php" class="btn btn-primary">
+                ➕ Create New Ticket
+            </a>
+            <a href="tickets.php" class="btn btn-outline">
+                📋 View All Tickets
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Load dashboard stats
+        loadDashboardStats();
+        
+        function loadDashboardStats() {
+            const tickets = ticketService.getTickets();
+            
+            // Update stats
+            document.getElementById('totalTickets').textContent = tickets.length;
+            document.getElementById('pendingTickets').textContent = 
+                tickets.filter(t => t.status === 'pending').length;
+            document.getElementById('resolvedTickets').textContent = 
+                tickets.filter(t => t.status === 'resolved').length;
+            document.getElementById('inProgressTickets').textContent = 
+                tickets.filter(t => t.status === 'in-progress').length;
+            
+            // Show recent tickets (last 5)
+            const recentTickets = tickets.slice(-5).reverse();
+            displayRecentTickets(recentTickets);
+        }
+        
+        function displayRecentTickets(tickets) {
+            const container = document.getElementById('recentTickets');
+            
+            if (tickets.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <p>No tickets yet. <a href="create-ticket.php">Create your first ticket!</a></p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = tickets.map(ticket => `
+                <div class="ticket-item">
+                    <div class="ticket-main">
+                        <h4 class="ticket-title">${ticket.title}</h4>
+                        <p class="ticket-description">${ticket.description}</p>
+                    </div>
+                    <div class="ticket-meta">
+                        <span class="ticket-priority priority-${ticket.priority}">
+                            ${ticket.priority}
+                        </span>
+                        <span class="ticket-status status-${ticket.status}">
+                            ${ticket.status}
+                        </span>
+                        <span class="ticket-date">
+                            ${new Date(ticket.createdAt).toLocaleDateString()}
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,143 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Edit Ticket - Ticket Management App{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-card">
+        <div class="form-header">
+            <h1>Edit Ticket</h1>
+            <p>Update the ticket details below</p>
+        </div>
+
+        <form id="editTicketForm" class="ticket-form">
+            <div class="form-group">
+                <label for="title" class="form-label">Ticket Title *</label>
+                <input 
+                    type="text" 
+                    id="title" 
+                    name="title" 
+                    class="form-input" 
+                    placeholder="Enter a descriptive title"
+                    required
+                >
+                <div class="error-message" id="titleError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="description" class="form-label">Description *</label>
+                <textarea 
+                    id="description" 
+                    name="description" 
+                    class="form-textarea" 
+                    placeholder="Describe the issue in detail..."
+                    rows="5"
+                    required
+                ></textarea>
+                <div class="error-message" id="descriptionError"></div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="priority" class="form-label">Priority *</label>
+                    <select id="priority" name="priority" class="form-select" required>
+                        <option value="">Select Priority</option>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                    <div class="error-message" id="priorityError"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="status" class="form-label">Status *</label>
+                    <select id="status" name="status" class="form-select" required>
+                        <option value="">Select Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="resolved">Resolved</option>
+                    </select>
+                    <div class="error-message" id="statusError"></div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Update Ticket</button>
+                <a href="tickets.php" class="btn btn-outline">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get ticket ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const ticketId = urlParams.get('id');
+        
+        if (!ticketId) {
+            alert('No ticket ID provided');
+            window.location.href = 'tickets.php';
+            return;
+        }
+        
+        // Load ticket data
+        const ticket = ticketService.getTicket(ticketId);
+        
+        if (!ticket) {
+            alert('Ticket not found');
+            window.location.href = 'tickets.php';
+            return;
+        }
+        
+        // Populate form
+        document.getElementById('title').value = ticket.title;
+        document.getElementById('description').value = ticket.description;
+        document.getElementById('priority').value = ticket.priority;
+        document.getElementById('status').value = ticket.status;
+        
+        // Handle form submission
+        const form = document.getElementById('editTicketForm');
+        
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const updatedData = {
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value,
+                priority: document.getElementById('priority').value,
+                status: document.getElementById('status').value,
+                id: ticketId,
+                createdAt: ticket.createdAt // Preserve original creation date
+            };
+            
+            // Clear previous errors
+            clearErrors();
+            
+            // Validation
+            if (!updatedData.title || !updatedData.description || !updatedData.priority || !updatedData.status) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            const success = ticketService.updateTicket(ticketId, updatedData);
+            
+            if (success) {
+                alert('Ticket updated successfully!');
+                window.location.href = 'tickets.php';
+            } else {
+                alert('Error updating ticket. Please try again.');
+            }
+        });
+        
+        function clearErrors() {
+            document.getElementById('titleError').textContent = '';
+            document.getElementById('descriptionError').textContent = '';
+            document.getElementById('priorityError').textContent = '';
+            document.getElementById('statusError').textContent = '';
+        }
+    });
+</script>
+{% endblock %}

@@ -5,20 +5,19 @@ function LandingPage() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="hero">
+            <section className="hero">
         <div className="circle circle-large"></div>
         <div className="circle circle-small"></div>
-        <div className="wave-container">
-          <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="white"></path>
-          </svg>
-        </div>
+        
         <div className="container">
           <div style={{ position: 'relative', zIndex: 10, textAlign: 'center', width: '100%' }}>
             <h1 style={{ fontSize: '3rem', marginBottom: '1rem', fontWeight: 'bold' }}>TicketFlow</h1>
-            <p style={{ fontSize: '1.25rem', marginBottom: '2rem', maxWidth: '600px', margin: '0 auto 2rem', opacity: 0.9 }}>
-              Streamline your support process with our powerful ticket management system
-            </p>
+            <h1 style={{ fontSize: '2rem' }} className="hero-title">Streamline Your Support Tickets</h1>
+            <div className="hero-subtitle">
+              <p>
+                A powerful ticket management system built with React.
+              </p>
+            </div>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
               <Link to="/auth/login" className="btn btn-secondary">Login</Link>
               <Link to="/auth/signup" className="btn btn-primary">Get Started</Link>
@@ -28,26 +27,57 @@ function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section style={{ padding: '4rem 0' }}>
+<section className="why-choose-section">
         <div className="container">
-          <h2 style={{ textAlign: 'center', marginBottom: '3rem', fontSize: '2.5rem' }}>Why Choose TicketFlow?</h2>
-          <div className="grid grid-cols-3">
-            <div className="card">
-              <h3 style={{ marginBottom: '1rem', color: 'var(--primary-color)' }}>Easy Ticket Management</h3>
-              <p>Create, track, and resolve tickets with our intuitive interface.</p>
+          <h2>Why Choose TicketFlow?</h2>
+          <div className="why-choose-grid">
+            <div className="why-choose-card">
+              <div className="feature-icon">🚀</div>
+              <h3>Lightning Fast</h3>
+              <p>Built with React for blazing fast performance and clean, maintainable code.</p>
             </div>
-            <div className="card">
-              <h3 style={{ marginBottom: '1rem', color: 'var(--primary-color)' }}>Real-time Updates</h3>
-              <p>Stay informed with live status updates and notifications.</p>
+            <div className="why-choose-card">
+              <div className="feature-icon">🔒</div>
+              <h3>Secure Authentication</h3>
+              <p>Client-side authentication with localStorage security and session management.</p>
             </div>
-            <div className="card">
-              <h3 style={{ marginBottom: '1rem', color: 'var(--primary-color)' }}>Team Collaboration</h3>
-              <p>Work together seamlessly with your support team.</p>
+            <div className="why-choose-card">
+              <div className="feature-icon">🎯</div>
+              <h3>Simple CRUD</h3>
+              <p>Create, read, update, and delete tickets with an intuitive interface.</p>
+            </div>
+            <div className="why-choose-card">
+              <div className="feature-icon">📱</div>
+              <h3>Responsive Design</h3>
+              <p>Works perfectly on desktop, tablet, and mobile devices.</p>
             </div>
           </div>
         </div>
       </section>
 
+      <div className="tech-section">
+        <div className="container">
+          <h2 className="section-title">Built with Modern Technologies</h2>
+          <div className="tech-stack">
+            <div className="tech-item">
+              <span className="tech-name">React</span>
+              <span className="tech-desc">Component-Based Framework</span>
+            </div>
+            <div className="tech-item">
+              <span className="tech-name">React Router</span>
+              <span className="tech-desc">Client-side Navigation</span>
+            </div>
+            <div className="tech-item">
+              <span className="tech-name">React Hooks</span>
+              <span className="tech-desc">Modern State Management</span>
+            </div>
+            <div className="tech-item">
+              <span className="tech-name">CSS3</span>
+              <span className="tech-desc">Modern Styling</span>
+            </div>
+          </div>
+          </div>
+      </div>
       {/* Footer */}
       <footer style={{ background: 'var(--gray-100)', padding: '2rem 0', marginTop: '4rem' }}>
         <div className="container">
