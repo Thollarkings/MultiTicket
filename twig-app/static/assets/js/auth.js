@@ -49,16 +49,28 @@ class AuthService {
         }
     }
 
-    // Login user
+    // Login user - MODIFIED FOR TEST MODE
     login(email, password) {
         try {
             const users = JSON.parse(localStorage.getItem('ticketapp_users') || '[]');
-            const user = users.find(u => u.email === email && u.password === btoa(password));
             
+            let user = null;
+            
+            // --- START TEST LOGIN BYPASS ---
+            if (users.length > 0) {
+                // TEST MODE: If any user exists, log in as the first user found.
+                // This bypasses the email and password check.
+                user = users[0];
+                console.warn("TEST MODE: Bypassing credentials check. Logging in as:", user.email);
+            } else {
+                // If no users exist, we cannot log in.
+            }
+            // --- END TEST LOGIN BYPASS ---
+
             if (!user) {
                 return {
                     success: false,
-                    message: 'Invalid email or password'
+                    message: 'No users registered. Please sign up one account first.'
                 };
             }
 
@@ -76,7 +88,7 @@ class AuthService {
 
             return {
                 success: true,
-                message: 'Login successful!',
+                message: 'Test Login successful!',
                 user: sessionUser
             };
         } catch (error) {
