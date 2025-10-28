@@ -6,13 +6,13 @@ The project is a Ticket Management System (named TicketFlow) implemented in thre
 🌐 Live Application Links
 Application,Framework,Deployment URL,Notes
 
-Main Selector,HTML/CSS/JS - https://multi-ticket.vercel.app/,- Entry point for selecting the desired app.
+Main Selector,HTML/CSS/JS - https://multi-ticket.vercel.app/ - Entry point for selecting the desired app.
 
-React App,React + Vite - https://multi-ticket.vercel.app/deploy/react-app/,Full CRUD implementation with dynamic stats.
+React App,React + Vite - https://multi-ticket.vercel.app/deploy/react-app - Full CRUD implementation with dynamic stats.
 
-Vue App,Vue 3 + Vite - https://multi-ticket.vercel.app/deploy/vue-app/,Full CRUD implementation with dynamic stats.
+Vue App,Vue 3 + Vite - https://multi-ticket.vercel.app/deploy/vue-app/ - Full CRUD implementation with dynamic stats.
 
-Twig App,Static Twig/JS - https://multi-ticket.vercel.app/twig-app/static/index.html,Simple HTML/JS/CSS implementation (server-side logic is mocked).
+Twig App,Static Twig/JS - https://multi-ticket.vercel.app/twig-app/static/index.html - Simple HTML/JS/CSS implementation (server-side logic is mocked).
 
 💡 Application Overview
 The core purpose is to demonstrate how a single development project can successfully manage and deploy different versions of the same core application, built with varying technologies.
