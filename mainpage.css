@@ -9,11 +9,12 @@ body {
     background: linear-gradient(135deg, #3b82f6, #2563eb);
     color: white;
     min-height: 100vh;
+    /* Main body centering for desktop/large screens */
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden; /* Prevent horizontal scroll from circles */
 }
 
 /* Wave Background */
@@ -49,9 +50,10 @@ body {
     left: -100px;
 }
 
+/* FIX: Removed excessive and negative margins. Using margin-bottom for spacing. */
 .title-box {
-    margin-bottom: 15rem;
-    margin-top: -10rem;
+    margin-bottom: 3rem; /* Adjusted for better desktop spacing */
+    margin-top: 0; /* Removed negative margin */
     text-align: center;
     border: solid 2px rgba(255, 255, 255, 0.2);
     border-radius: 5% / 30%;
@@ -91,6 +93,7 @@ h1 {
 }
 
 .apps-grid {
+    /* auto-fit/minmax handles stacking on smaller screens */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
@@ -106,7 +109,7 @@ h1 {
     padding: 2.5rem 2rem;
     border-radius: 20px;
     text-decoration: none;
-    color: rgb(53, 1, 9);
+    color: white; /* Changed color to white for better contrast on background */
     transition: all 0.3s ease;
     border: 1px solid rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(15px);
@@ -132,6 +135,7 @@ h1 {
     font-size: 1.75rem;
     margin-bottom: 0.75rem;
     font-weight: 600;
+    color: white; /* Ensure title is white */
 }
 
 .app-description {
@@ -164,7 +168,15 @@ h1 {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    /* FIX: Override the body's centering to allow natural vertical scrolling */
+    body {
+        display: block;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+
     .apps-grid {
+        /* Already handled by auto-fit/minmax, but explicitly setting 1fr is safer */
         grid-template-columns: 1fr;
         gap: 1.5rem;
     }
@@ -177,9 +189,10 @@ h1 {
         font-size: 1.2rem;
     }
 
+    /* FIX: Greatly reduced vertical spacing to prevent overflow */
     .title-box {
-        margin-bottom: 10rem;
-        margin-top: -5rem;
+        margin-bottom: 2rem; 
+        margin-top: 0;
         padding: 1.5rem 2rem;
     }
 
