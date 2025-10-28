@@ -109,7 +109,7 @@ h1 {
     padding: 2.5rem 2rem;
     border-radius: 20px;
     text-decoration: none;
-    color: white; /* Changed color to white for better contrast on background */
+    color: rgb(43, 2, 2); /* Changed color to white for better contrast on background */
     transition: all 0.3s ease;
     border: 1px solid rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(15px);
@@ -135,7 +135,7 @@ h1 {
     font-size: 1.75rem;
     margin-bottom: 0.75rem;
     font-weight: 600;
-    color: white; /* Ensure title is white */
+    color: rgb(92, 102, 238); /* Ensure title is white */
 }
 
 .app-description {
