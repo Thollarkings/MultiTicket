@@ -49,20 +49,32 @@ class AuthService {
         }
     }
 
-    // Login user
+    // Login user - MODIFIED FOR TEST MODE (No Signup Required)
     login(email, password) {
         try {
             const users = JSON.parse(localStorage.getItem('ticketapp_users') || '[]');
-            const user = users.find(u => u.email === email && u.password === btoa(password));
             
-            if (!user) {
-                return {
-                    success: false,
-                    message: 'Invalid email or password'
+            let user = null;
+            
+            // --- START TEST LOGIN BYPASS ---
+            if (users.length > 0) {
+                // Scenario 1: Users exist. Log in as the first registered user.
+                user = users[0];
+                console.warn("TEST MODE: Bypassing credentials check. Logging in as:", user.email);
+            } else {
+                // Scenario 2: No users exist (fresh browser). Create a generic test user on the fly.
+                user = { 
+                    id: 'test_session', 
+                    name: 'Guest Tester', 
+                    // Use provided email or fallback
+                    email: email || 'test@guest.com', 
+                    createdAt: new Date().toISOString()
                 };
+                console.warn("TEST MODE: No users found. Creating temporary Guest Tester session.");
             }
+            // --- END TEST LOGIN BYPASS ---
 
-            // Create session (without password)
+            // Create session (without password, since we are bypassing verification)
             const sessionUser = { ...user };
             delete sessionUser.password;
             
@@ -76,7 +88,7 @@ class AuthService {
 
             return {
                 success: true,
-                message: 'Login successful!',
+                message: 'Test Login successful!',
                 user: sessionUser
             };
         } catch (error) {
