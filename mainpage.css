@@ -135,7 +135,7 @@ h1 {
     font-size: 1.75rem;
     margin-bottom: 0.75rem;
     font-weight: 600;
-    color: rgb(92, 102, 238); /* Ensure title is white */
+    color: rgb(3, 9, 92); /* Ensure title is white */
 }
 
 .app-description {
