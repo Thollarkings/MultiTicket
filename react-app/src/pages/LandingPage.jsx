@@ -2,15 +2,47 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 function LandingPage() {
+  // Define the external URL for the main multi-app page
+  const mainAppUrl = "https://multi-ticket.vercel.app/" 
+    
   return (
     <div>
       {/* Hero Section */}
-            <section className="hero">
+      <section className="hero">
         <div className="circle circle-large"></div>
         <div className="circle circle-small"></div>
         
         <div className="container">
-          <div style={{ position: 'relative', zIndex: 10, textAlign: 'center', width: '100%' }}>
+          <div style={{ 
+            position: 'relative', 
+            zIndex: 10, 
+            textAlign: 'center', 
+            width: '100%',
+            // Container for the title and the new button
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
+          }}>
+            {/* NEW: Back to Main Apps Button */}
+            <a 
+              href={mainAppUrl} 
+              className="btn btn-tertiary" 
+              style={{
+                position: 'absolute',
+                top: '-30px', // Position it above the main content
+                right: '0',
+                fontSize: '0.9rem',
+                padding: '0.5rem 1rem',
+                textDecoration: 'none',
+                backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                color: 'white',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                backdropFilter: 'blur(5px)'
+              }}
+            >
+              ← Back to Main Apps
+            </a>
+
             <h1 style={{ fontSize: '3rem', marginBottom: '1rem', fontWeight: 'bold' }}>TicketFlow</h1>
             <h1 style={{ fontSize: '2rem' }} className="hero-title">Streamline Your Support Tickets</h1>
             <div className="hero-subtitle">
@@ -27,7 +59,7 @@ function LandingPage() {
       </section>
 
       {/* Features Section */}
-<section className="why-choose-section">
+      <section className="why-choose-section">
         <div className="container">
           <h2>Why Choose TicketFlow?</h2>
           <div className="why-choose-grid">
