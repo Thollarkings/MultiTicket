@@ -1,15 +1,38 @@
-import React from 'react'
+// Dashboard.jsx
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import StatsCard from '../components/StatsCard'
 
 function Dashboard() {
-  // Mock data - in real app, this would come from API
-  const stats = {
-    total: 10,
-    open: 4,
-    inProgress: 6,
-    closed: 3
-  }
+  const [stats, setStats] = useState({
+    total: 0,
+    open: 0,
+    inProgress: 0,
+    closed: 0
+  })
+
+  useEffect(() => {
+    // 1. Get tickets from localStorage
+    const storedTickets = localStorage.getItem('ticketapp_tickets')
+    let tickets = []
+    if (storedTickets) {
+      try {
+        tickets = JSON.parse(storedTickets)
+      } catch (error) {
+        console.error('Error parsing stored tickets:', error)
+      }
+    }
+
+    // 2. Calculate statistics
+    const newStats = {
+      total: tickets.length,
+      open: tickets.filter(t => t.status === 'open').length,
+      inProgress: tickets.filter(t => t.status === 'in_progress').length,
+      closed: tickets.filter(t => t.status === 'closed').length
+    }
+    
+    setStats(newStats)
+  }, []) // Runs once on mount to get the latest stats
 
   return (
     <div className="container" style={{ padding: '2rem 0' }}>
