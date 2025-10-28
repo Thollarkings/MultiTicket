@@ -48,6 +48,42 @@ export default {
   name: 'Dashboard',
   components: {
     Layout
+  },
+  data() {
+    return {
+      stats: { // Initial state starts at zero
+        total: 0,
+        open: 0,
+        inProgress: 0,
+        closed: 0,
+      }
+    }
+  },
+  // When the component mounts, load the data and calculate stats
+  mounted() {
+    this.calculateStats()
+  },
+  methods: {
+    calculateStats() {
+      // Load raw ticket data from localStorage
+      const storedTickets = localStorage.getItem('ticketapp_tickets')
+      let tickets = []
+      
+      if (storedTickets) {
+        try {
+          tickets = JSON.parse(storedTickets)
+        } catch (error) {
+          console.error('Error parsing stored tickets:', error)
+          return
+        }
+      }
+
+      // Calculate the statistics
+      this.stats.total = tickets.length
+      this.stats.open = tickets.filter(t => t.status === 'open').length
+      this.stats.inProgress = tickets.filter(t => t.status === 'in_progress').length
+      this.stats.closed = tickets.filter(t => t.status === 'closed').length
+    }
   }
 }
 </script>
