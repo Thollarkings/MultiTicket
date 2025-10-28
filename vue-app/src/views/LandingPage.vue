@@ -9,7 +9,7 @@
           <h1 style="font-size: 3rem; margin-bottom: 1rem; font-weight: bold">TicketFlow</h1>
           <h1 style="font-size: 2rem;" class="hero-title">Streamline Your Support Tickets</h1>
           
-          <div style="max-width: 600px; margin: 0 auto; text-align: left">
+          <div style="max-width: 1024px; margin: 0 auto; text-align: left">
             <div class="hero-subtitle">
               <p>
                 A powerful ticket management system built with vue.js.

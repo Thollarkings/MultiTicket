@@ -15,7 +15,7 @@ function LandingPage() {
             <h1 style={{ fontSize: '2rem' }} className="hero-title">Streamline Your Support Tickets</h1>
             
             
-            <div style={{ maxWidth: '600px', margin: '0 auto', textAlign: 'left' }}>
+            <div style={{ maxWidth: '1024px', margin: '0 auto', textAlign: 'left' }}>
               
               <div className="hero-subtitle">
                 <p>
