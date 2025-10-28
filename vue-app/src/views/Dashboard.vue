@@ -8,22 +8,22 @@
       
       <div class="stats-grid">
         <div class="card stat-card">
-          <span class="stat-number" style="color: var(--primary-color)">24</span>
+          <span class="stat-number" style="color: var(--primary-color)">{{ stats.total }}</span>
           <div class="stat-label">Total Tickets</div>
           <p style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--gray-600)">All tickets in the system</p>
         </div>
         <div class="card stat-card">
-          <span class="stat-number" style="color: var(--warning-color)">8</span>
+          <span class="stat-number" style="color: var(--warning-color)">{{ stats.open }}</span>
           <div class="stat-label">Open Tickets</div>
           <p style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--gray-600)">Tickets waiting for action</p>
         </div>
         <div class="card stat-card">
-          <span class="stat-number" style="color: var(--success-color)">12</span>
+          <span class="stat-number" style="color: var(--success-color)">{{ stats.inProgress }}</span>
           <div class="stat-label">In Progress</div>
           <p style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--gray-600)">Tickets being worked on</p>
         </div>
         <div class="card stat-card">
-          <span class="stat-number" style="color: var(--gray-700)">4</span>
+          <span class="stat-number" style="color: var(--gray-700)">{{ stats.closed }}</span>
           <div class="stat-label">Closed</div>
           <p style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--gray-600)">Resolved tickets</p>
         </div>
@@ -51,7 +51,7 @@ export default {
   },
   data() {
     return {
-      stats: { // Initial state starts at zero
+      stats: { 
         total: 0,
         open: 0,
         inProgress: 0,
@@ -59,13 +59,19 @@ export default {
       }
     }
   },
-  // When the component mounts, load the data and calculate stats
-  mounted() {
+  // FIX: Use created() instead of mounted() to ensure data is ready, 
+  // or use an explicit watcher if tickets could update while on the dashboard.
+  created() { 
     this.calculateStats()
+  },
+  // FIX: Use beforeRouteEnter/Update to ensure stats refresh when navigating back
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.calculateStats()
+    })
   },
   methods: {
     calculateStats() {
-      // Load raw ticket data from localStorage
       const storedTickets = localStorage.getItem('ticketapp_tickets')
       let tickets = []
       

@@ -118,18 +118,21 @@ export default {
       tickets: [],
       showForm: false,
       editingTicket: null,
-      formData: {
-        title: '',
-        description: '',
-        status: 'open',
-        priority: 'medium'
-      }
+      formData: this.getInitialFormData() // Use a helper for fresh state
     }
   },
   mounted() {
     this.loadTickets()
   },
   methods: {
+    getInitialFormData() {
+      return {
+        title: '',
+        description: '',
+        status: 'open',
+        priority: 'medium'
+      }
+    },
     loadTickets() {
       const storedTickets = localStorage.getItem('ticketapp_tickets')
       if (storedTickets) {
@@ -137,6 +140,8 @@ export default {
       }
     },
     saveTickets() {
+      // FIX: Ensure tickets are sorted by ID/creation date descending
+      this.tickets.sort((a, b) => b.id - a.id)
       localStorage.setItem('ticketapp_tickets', JSON.stringify(this.tickets))
     },
     getStatusLabel(status) {
@@ -148,6 +153,12 @@ export default {
       return statusMap[status] || 'Open'
     },
     handleSubmit() {
+      // Simple validation for title (since input is required, this is backup)
+      if (!this.formData.title) {
+        alert('Title is required!')
+        return
+      }
+
       if (this.editingTicket) {
         // Update ticket
         this.tickets = this.tickets.map(ticket =>
@@ -159,11 +170,12 @@ export default {
         // Create new ticket
         const newTicket = {
           ...this.formData,
-          id: Date.now(),
+          id: Date.now(), // Use unique ID for key
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString()
         }
-        this.tickets.unshift(newTicket)
+        // Use Vue.js reactivity to add to the front
+        this.tickets.unshift(newTicket) 
       }
       
       this.saveTickets()
@@ -172,7 +184,8 @@ export default {
     },
     editTicket(ticket) {
       this.editingTicket = ticket
-      this.formData = { ...ticket }
+      // Use Object.assign to avoid shallow copy issues with reactivity
+      this.formData = Object.assign({}, ticket) 
       this.showForm = true
     },
     deleteTicket(ticketId) {
@@ -185,12 +198,8 @@ export default {
     cancelForm() {
       this.showForm = false
       this.editingTicket = null
-      this.formData = {
-        title: '',
-        description: '',
-        status: 'open',
-        priority: 'medium'
-      }
+      // Reset form data using the helper method
+      this.formData = this.getInitialFormData() 
     }
   }
 }
