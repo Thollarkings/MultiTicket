@@ -13,22 +13,32 @@ function LandingPage() {
           <div style={{ position: 'relative', zIndex: 10, textAlign: 'center', width: '100%' }}>
             <h1 style={{ fontSize: '3rem', marginBottom: '1rem', fontWeight: 'bold' }}>TicketFlow</h1>
             <h1 style={{ fontSize: '2rem' }} className="hero-title">Streamline Your Support Tickets</h1>
-            <div className="hero-subtitle">
-              <p>
-                A powerful ticket management system built with React.
-              </p>
-              {/* === NEW LINK ADDED HERE === */}
-              <p style={{ marginTop: '0.75rem', fontSize: '1.1rem' }}>
-                <a 
-                  href="https://multi-ticket.vercel.app/" 
-                  className="link-back"
-                  style={{ color: 'var(--gray-900)', textDecoration: 'underline' }}
-                >
-                  ← Return to Main App Selection
-                </a>
-              </p>
-              {/* ========================== */}
+            
+            
+            <div style={{ maxWidth: '600px', margin: '0 auto', textAlign: 'left' }}>
+              
+              <div className="hero-subtitle">
+                <p>
+                  A powerful ticket management system built with React.
+                </p>
+              </div>
+
+              <div style={{ marginTop: '0.75rem', marginBottom: '1.5rem', fontSize: '1.1rem' }}>
+                  <a 
+                    href="https://multi-ticket.vercel.app/" 
+                    className="link-back"
+                    style={{ 
+                      color: 'var(--gray-900)', 
+                      textDecoration: 'underline', 
+                      textShadow: 'none' // Correct camelCase property
+                    }}
+                  >
+                    ← Return to Main App Selection
+                  </a>
+              </div>
             </div>
+            {/* END FIX */}
+
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
               <Link to="/auth/login" className="btn btn-secondary">Login</Link>
               <Link to="/auth/signup" className="btn btn-primary">Get Started</Link>

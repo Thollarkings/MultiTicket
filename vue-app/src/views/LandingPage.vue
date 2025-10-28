@@ -8,19 +8,23 @@
         <div style="position: relative; z-index: 10; text-align: center; width: 100%">
           <h1 style="font-size: 3rem; margin-bottom: 1rem; font-weight: bold">TicketFlow</h1>
           <h1 style="font-size: 2rem;" class="hero-title">Streamline Your Support Tickets</h1>
-          <div class="hero-subtitle">
-          <p>
-            A powerful ticket management system built with vue.js.
-          </p>
-          <p style="margin-top: 0.75rem; font-size: 1.1rem">
-            <a 
-              href="https://multi-ticket.vercel.app/" 
-              class="link-back"
-              style="color: var(--gray-900); text-decoration: underline"
-            >
-              ← Return to Main App Selection
-            </a>
-          </p>
+          
+          <div style="max-width: 600px; margin: 0 auto; text-align: left">
+            <div class="hero-subtitle">
+              <p>
+                A powerful ticket management system built with vue.js.
+              </p>
+            </div>
+            
+            <p style="margin-top: 0.75rem; margin-bottom: 1.5rem; font-size: 1.1rem">
+              <a 
+                href="https://multi-ticket.vercel.app/" 
+                class="link-back"
+                style="color: var(--gray-900) !important; text-decoration: underline; text-shadow: none !important;"
+              >
+                ← Return to Main App Selection
+              </a>
+            </p>
           </div>
           <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap">
             <router-link to="/auth/login" class="btn btn-secondary">Login</router-link>
