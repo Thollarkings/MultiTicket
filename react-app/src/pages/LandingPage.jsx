@@ -22,7 +22,7 @@ function LandingPage() {
                 <a 
                   href="https://multi-ticket.vercel.app/" 
                   className="link-back"
-                  style={{ color: 'var(--gray-200)', textDecoration: 'underline' }}
+                  style={{ color: 'var(--gray-900)', textDecoration: 'underline' }}
                 >
                   ← Return to Main App Selection
                 </a>

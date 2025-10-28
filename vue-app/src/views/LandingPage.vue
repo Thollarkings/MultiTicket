@@ -12,6 +12,15 @@
           <p>
             A powerful ticket management system built with vue.js.
           </p>
+          <p style="margin-top: 0.75rem; font-size: 1.1rem">
+            <a 
+              href="https://multi-ticket.vercel.app/" 
+              class="link-back"
+              style="color: var(--gray-900); text-decoration: underline"
+            >
+              ← Return to Main App Selection
+            </a>
+          </p>
           </div>
           <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap">
             <router-link to="/auth/login" class="btn btn-secondary">Login</router-link>
