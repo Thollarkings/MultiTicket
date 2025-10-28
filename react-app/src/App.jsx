@@ -24,12 +24,12 @@ function ProtectedRoute({ children }) {
 }
 
 function App() {
-  console.log('App component rendering') // Add this log
+  console.log('App component rendering') 
   
   return (
     <AuthProvider>
       <Routes>
-        {/* Add debug route first */}
+        
         <Route path="/debug" element={<DebugTest />} />
         
         <Route path="/" element={<LandingPage />} />

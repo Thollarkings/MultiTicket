@@ -1,18 +1,26 @@
 {
-  "name": "react-ticket-app",
-  "homepage": "https://thollarkings.github.io/MultiTicket/react-app",
+  "name": "multi-framework-project",
+  "version": "1.0.0",
+  "description": "Multi-framework Ticket App: Deployment script for React, Vue, and Twig apps.",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "clean": "rimraf dist",
+    "build:react": "npm run build --prefix react-app",
+    "build:vue": "npm run build --prefix vue-app",
+    
+
+    "build": "npm run clean && npm run build:react && npm run build:vue && node build-copy.js",
+    
+    "preview": "vite preview"
+    
   },
   "dependencies": {
     "twig": "^1.17.1"
   },
   "devDependencies": {
     "@rollup/plugin-virtual": "^3.0.2",
+    "copyfiles": "^2.4.1",
+    "rimraf": "^6.0.1",
     "vite-plugin-html": "^3.2.2"
   }
 }

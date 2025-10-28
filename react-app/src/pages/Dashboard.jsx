@@ -5,10 +5,10 @@ import StatsCard from '../components/StatsCard'
 function Dashboard() {
   // Mock data - in real app, this would come from API
   const stats = {
-    total: 24,
-    open: 8,
-    inProgress: 12,
-    closed: 4
+    total: 10,
+    open: 4,
+    inProgress: 6,
+    closed: 3
   }
 
   return (
