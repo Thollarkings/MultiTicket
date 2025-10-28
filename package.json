@@ -2,18 +2,16 @@
   "name": "multi-framework-project",
   "version": "1.0.0",
   "description": "Multi-framework Ticket App: Deployment script for React, Vue, and Twig apps.",
-  "scripts": {
-    "dev": "vite",
-    "clean": "rimraf dist",
-    "build:react": "npm run build --prefix react-app",
-    "build:vue": "npm run build --prefix vue-app",
-    
+"scripts": {
+  "dev": "vite",
+  "clean": "rimraf dist",
+  "install:subapps": "npm install --prefix react-app && npm install --prefix vue-app",
+  "build:react": "npm run build --prefix react-app",
+  "build:vue": "npm run build --prefix vue-app",
+  "build": "npm run clean && npm run install:subapps && npm run build:react && npm run build:vue && node build-copy.js",
+  "preview": "vite preview"
+},
 
-    "build": "npm run clean && npm run build:react && npm run build:vue && node build-copy.js",
-    
-    "preview": "vite preview"
-    
-  },
   "dependencies": {
     "twig": "^1.17.1"
   },
