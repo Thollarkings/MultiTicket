@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Ticket - Ticket Management App</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    </head>
+<body>
+        <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                
+            </div>
+            <div class="nav-links">
+                                    <span class="user-welcome">Welcome, User</span>
+                    <a href="dashboard.html" class="nav-link">Dashboard</a>
+                    <a href="tickets.html" class="nav-link">Tickets</a>
+                    <button onclick="authService.logout()" class="btn btn-outline">Logout</button>
+                            </div>
+        </nav>
+    </header>
+    
+    <main class="main-content">
+        <div class="form-container">
+    <div class="form-card">
+        <div class="form-header">
+            <h1>Create New Ticket</h1>
+            <p>Fill in the details below to create a new support ticket</p>
+        </div>
+
+        <form id="createTicketForm" class="ticket-form">
+            <div class="form-group">
+                <label for="title" class="form-label">Ticket Title *</label>
+                <input 
+                    type="text" 
+                    id="title" 
+                    name="title" 
+                    class="form-input" 
+                    placeholder="Enter a descriptive title"
+                    required
+                >
+                <div class="error-message" id="titleError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="description" class="form-label">Description *</label>
+                <textarea 
+                    id="description" 
+                    name="description" 
+                    class="form-textarea" 
+                    placeholder="Describe the issue in detail..."
+                    rows="5"
+                    required
+                ></textarea>
+                <div class="error-message" id="descriptionError"></div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="priority" class="form-label">Priority *</label>
+                    <select id="priority" name="priority" class="form-select" required>
+                        <option value="">Select Priority</option>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                    <div class="error-message" id="priorityError"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="status" class="form-label">Status *</label>
+                    <select id="status" name="status" class="form-select" required>
+                        <option value="">Select Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="resolved">Resolved</option>
+                    </select>
+                    <div class="error-message" id="statusError"></div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Create Ticket</button>
+                <a href="tickets.html" class="btn btn-outline">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+    </main>
+
+        <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 TicketFlow. Built with Twig.</p>
+        </div>
+    </footer>
+    
+    <!-- JavaScript Files -->
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/tickets.js"></script>
+    <script src="assets/js/app.js"></script>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('createTicketForm');
+        
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const priority = document.getElementById('priority').value;
+            const status = document.getElementById('status').value;
+            
+            // Clear previous errors
+            clearErrors();
+            
+            // Validation
+            if (!title || !description || !priority || !status) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            const ticketData = {
+                title,
+                description,
+                priority,
+                status,
+                createdAt: new Date().toISOString(),
+                id: Date.now().toString() // Simple ID generation
+            };
+            
+            const success = ticketService.createTicket(ticketData);
+            
+            if (success) {
+                alert('Ticket created successfully!');
+                window.location.href = 'tickets.html';
+            } else {
+                alert('Error creating ticket. Please try again.');
+            }
+        });
+        
+        function clearErrors() {
+            document.getElementById('titleError').textContent = '';
+            document.getElementById('descriptionError').textContent = '';
+            document.getElementById('priorityError').textContent = '';
+            document.getElementById('statusError').textContent = '';
+        }
+    });
+</script>
+    
+    <script>
+        // Auth check on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = authService.getCurrentUser();
+            if (!user && !window.location.pathname.includes('login.html') && 
+                !window.location.pathname.includes('signup.html') && 
+                !window.location.pathname.includes('index.html')) {
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+</body>
+</html>

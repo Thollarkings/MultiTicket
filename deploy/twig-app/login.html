@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Ticket Management App</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    </head>
+<body>
+        <header class="header">
+<!--         <nav class="nav">
+            <div class="nav-brand">
+                
+            </div>
+            <div class="nav-links">
+                                    <span class="user-welcome">Welcome, User</span>
+                    <a href="dashboard.html" class="nav-link">Dashboard</a>
+                    <a href="tickets.html" class="nav-link">Tickets</a>
+                    <button onclick="authService.logout()" class="btn btn-outline">Logout</button>
+                            </div>
+        </nav> -->
+    </header>
+    
+    <main class="main-content">
+        <div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h1 class="auth-title">Welcome Back</h1>
+            <p class="auth-subtitle">Sign in to your account to continue</p>
+        </div>
+
+        <form id="loginForm" class="auth-form">
+            <div class="form-group">
+                <label for="email" class="form-label">Email Address</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    class="form-input" 
+                    placeholder="Enter your email"
+                    required
+                >
+                <div class="error-message" id="emailError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    class="form-input" 
+                    placeholder="Enter your password"
+                    required
+                >
+                <div class="error-message" id="passwordError"></div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full">
+                Sign In
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Don't have an account? 
+                <a href="signup.html" class="auth-link">Create one here</a>
+            </p>
+        </div>
+    </div>
+</div>
+    </main>
+
+        <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 TicketFlow. Built with Twig.</p>
+        </div>
+    </footer>
+    
+    <!-- JavaScript Files -->
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/tickets.js"></script>
+    <script src="assets/js/app.js"></script>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const loginForm = document.getElementById('loginForm');
+        
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Clear previous errors
+            clearErrors();
+            
+            const result = authService.login(email, password);
+            
+            if (result.success) {
+                window.location.href = 'dashboard.html';
+            } else {
+                showError('emailError', result.message);
+            }
+        });
+        
+        function clearErrors() {
+            document.getElementById('emailError').textContent = '';
+            document.getElementById('passwordError').textContent = '';
+        }
+        
+        function showError(elementId, message) {
+            document.getElementById(elementId).textContent = message;
+        }
+        
+        // Redirect if already logged in
+        const user = authService.getCurrentUser();
+        if (user) {
+            window.location.href = 'dashboard.html';
+        }
+    });
+</script>
+    
+    <script>
+        // Auth check on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = authService.getCurrentUser();
+            if (!user && !window.location.pathname.includes('login.html') && 
+                !window.location.pathname.includes('signup.html') && 
+                !window.location.pathname.includes('index.html')) {
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+</body>
+</html>
